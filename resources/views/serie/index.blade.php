@@ -33,16 +33,27 @@
                 <tr>
                     <td>{{ $serie->id }}</td>
                     <td>
-                        <img class="img-thumbnail img-fluid" src="{{ asset('storage').'/'.$serie->imagen }}" width="120" alt="">
+                        <figure>
+                            @php
+                        $nombre_fichero = 'img/series/'.$serie->id.'.jpg';
+                        if (!(file_exists($nombre_fichero))) {
+                            $nombre_fichero = "img/Delete-file-icon.png";
+                        }
+                        @endphp
+                        <img class="img-thumbnail img-fluid" src="{{ asset($nombre_fichero) }}" width="120" alt="">
+                        <p><a href="{{ route('serie.imagen',$serie->id) }}">Subir Imágen</a></p>
+                        </figure>
+                        
+                        
                     </td>
 
                     <td>{{ $serie->nombre }}</td>
                     
-                    <td>{{ $serie->nombreCategoria->Nombre}}</td>
+                    <td>{{ $serie->categorias->Nombre }}</td>
                     
                     
                     <td>
-                        <a href="{{ url('/serie/'.$serie->id.'/edit') }} " class="btn btn-info"> Editar</a>
+                        <a href="{{ route('serie.edit',$serie->id) }} " class="btn btn-info"> Editar</a>
                         |
                         <form action="{{ url('/serie/'.$serie->id) }}" class="d-inline" method="post">
                             @csrf

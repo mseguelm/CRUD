@@ -27,6 +27,11 @@ Route::get('/', function () {
 // Route::get('/serie/create',[SerieController::class,'create']);
 
 Route::resource('serie', SerieController::class)->middleware('auth');
+Route::get('/serie/imagen-upload/{id}', [SerieController::class, 'imagen'])->name('serie.imagen');
+
+Route::put('/serie/upload-imagen/{id}', [SerieController::class, 'upload'])->name('serie.upload');
+
+
 
 
 Auth::routes(['reset'=>false]);
